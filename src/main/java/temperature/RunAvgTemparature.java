@@ -46,21 +46,25 @@ public class RunAvgTemparature {
 		service.startCalculate(TASK_NAME, taskDelay, taskPeriod);
 		Scanner scanner = new Scanner(System.in);
 		boolean isRunning = true;
-		do {
-			try {
+		
+		try {
+			do {
 				String line = scanner.nextLine();
-
 				if (!line.equals("quit")) {
 					service.postTemperatureString(line);
 				} else {
 					isRunning = false;
 				}
-			} catch (NoSuchElementException | IllegalStateException e) {
-				// do nothing
+			} while (isRunning);
+			
+		} catch (NoSuchElementException | IllegalStateException e) {
+			System.out.println("Fatal error: program will terminate");
+		}finally {
+			if (scanner != null) {
+				scanner.close();
 			}
-		} while (isRunning);
+		}
 
-		scanner.close();
 		LOGGER.info("Stop task: '" + TASK_NAME + "'");
 		service.stopCalculate();
 		LOGGER.info("Finish calculate avarange tempareture for countries.");

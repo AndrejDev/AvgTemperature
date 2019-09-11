@@ -91,8 +91,10 @@ public class TemperatureService {
 
 		} catch (NoSuchElementException e) {
 			LOGGER.warn("No more tokens are available");
+			System.out.println("Invalid input '" + data + "'");
 		} catch (NullPointerException | NumberFormatException e) {
-			LOGGER.error("Error during parsing of temperature");
+			LOGGER.warn("Error during parsing of temperature");
+			System.out.println("Invalid input '" + data + "'");
 		} finally {
 			if (dataScanner != null) {
 				dataScanner.close();

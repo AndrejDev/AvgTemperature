@@ -78,10 +78,12 @@ public enum TemperatureManager {
 					System.out.println("Add '" + temperature + "' to '" + country + "'");
 					return cachedData.get(country).add(temperature);
 				} else {
-					LOGGER.error("Country not exist in list - '" + country + "'");
+					LOGGER.warn("Country not exist in list - '" + country + "'");
+					System.out.println("Invalid input '" + country + temperature + "'");
 				}
 			} else {
-				LOGGER.error("Invalid input - '" + country + "'" + " '" + temperature);
+				LOGGER.warn("Invalid input - '" + country + "'" + " '" + temperature);
+				System.out.println("Invalid input '" + country + temperature + "'");
 			}
 		} finally {
 			rwlock.writeLock().unlock();
